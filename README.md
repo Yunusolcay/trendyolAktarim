@@ -1,5 +1,12 @@
 # trendyolAktarim
 c# Trendyol siparişlerinizi çeker ve kaydeder.
-# json klasörü içerisinde
-connection.json mssql bilgilerinizi girmeniz gerekiyor.
-trendyol.json içerisinde trendyolApi bilgilerini girmeniz gerekiyor.
+# A_TRENDYOL
+şeklinde bir database oluşturur.
+# A_ORDER 
+sipariş bilgileri yer alır.
+# A_ORDERLINE 
+ürün bilgileri yer alır.
+# json/connection.json
+Mssql bilgilerinizi girmeniz gerekiyor.
+# json/trendyol.json
+İçerisinde trendyolApi bilgilerini girmeniz gerekiyor.
