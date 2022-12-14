@@ -80,6 +80,51 @@ namespace trendyolAktarim.Models
                 }
             }
         }
+
+        public async Task<TrendProductList> getProductList(int page)
+        {
+            try
+            {
+                System.Threading.Thread.Sleep(500);
+                ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+                string parameter = "?size=200&approved=true&page=" + page;
+                var client = new RestClient(td.apiUrl + "suppliers/" + td.auth.supplierID + "/products" + parameter);
+                client.Authenticator = new HttpBasicAuthenticator(td.auth.apiUserName, td.auth.apiPassword);
+                var request = new RestRequest(Method.GET);
+                RestResponse resp = (RestResponse)client.Execute(request);
+                TrendProductList prodList = (TrendProductList)JsonConvert.DeserializeObject(resp.Content, typeof(TrendProductList));
+                return await Task.FromResult<TrendProductList>(((Func<TrendProductList>)(() =>
+                {
+                    System.Threading.Thread.Sleep(500);
+                    return prodList;
+                }))());
+                //return Task.Run(() => orderList);
+            }
+            catch (Exception ex)
+            {
+            }
+            return null;
+        }
+
+
+        public void urunKaydet(TrendyolProduct p)
+        {
+            DBHelper obj = new DBHelper("A_TRENDYOL", "A_TRENDYOL");
+            if (p != null)
+            {
+                try
+                {
+                    obj.ExecNonQuery("EXEC P_URUNKAYDET '" + p.id + "','" + p.productCode + "','" + p.brand + "','" + p.barcode + "','" + p.title.Replace("'", " ") + "'," +
+                    "'" + p.categoryName + "','" + p.listPrice.ToString().Replace(",", ".") + "','" + p.salePrice.ToString().Replace(",", ".") + "'," +
+                    "'" + p.vatRate.ToString().Replace(",", ".") + "','" + p.stockCode.Replace("'", "''") + "','" + p.stockId + "',N'" + p.images[0].url + "','','','','','',1");
+                }
+                catch (Exception e)
+                {
+
+                }
+
+            }
+        }
     }
 
     public class TrendyolSettings
@@ -367,5 +412,73 @@ namespace trendyolAktarim.Models
             TrendToplam = int.Parse(dr["TrendToplam"].ToString());
             TrendSevk = int.Parse(dr["TrendSevk"].ToString());
         }
+    }
+
+    public class TrendProductList
+    {
+        public int page, size, totalPages, totalElements;
+        public List<TrendyolProduct> content = new List<TrendyolProduct>();
+    }
+
+    public class Attribute
+    {
+        public int attributeId { get; set; }
+        public string attributeName { get; set; }
+        public int attributeValueId { get; set; }
+        public string attributeValue { get; set; }
+    }
+
+    public class TrendyolProduct
+    {
+        public string id { get; set; }
+        public bool approved { get; set; }
+        public bool archived { get; set; }
+        public int productCode { get; set; }
+        public string batchRequestId { get; set; }
+        public int supplierId { get; set; }
+        public long createDateTime { get; set; }
+        public long lastUpdateDate { get; set; }
+        public string gender { get; set; }
+        public string brand { get; set; }
+        public string barcode { get; set; }
+        public string title { get; set; }
+        public string categoryName { get; set; }
+        public string productMainId { get; set; }
+        public string description { get; set; }
+        public string stockUnitType { get; set; }
+        public int quantity { get; set; }
+        public double listPrice { get; set; }
+        public double salePrice { get; set; }
+        public int vatRate { get; set; }
+        public double dimensionalWeight { get; set; }
+        public string stockCode { get; set; }
+        public List<Image> images { get; set; }
+        public List<Attribute> attributes { get; set; }
+        public string platformListingId { get; set; }
+        public string stockId { get; set; }
+        public bool hasActiveCampaign { get; set; }
+        public bool locked { get; set; }
+        public int productContentId { get; set; }
+        public int pimCategoryId { get; set; }
+        public int brandId { get; set; }
+        public int version { get; set; }
+        public string color { get; set; }
+        public string size { get; set; }
+        public bool lockedByUnSuppliedReason { get; set; }
+        public bool onsale { get; set; }
+    }
+
+    public class Image
+    {
+        public string url { get; set; }
+    }
+
+    public class TrendyolProductResponse
+    {
+        public int totalElements { get; set; }
+        public int totalPages { get; set; }
+        public int page { get; set; }
+        public int size { get; set; }
+        public List<TrendyolProduct> content { get; set; }
     }
 }

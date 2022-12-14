@@ -31,6 +31,8 @@ namespace trendyolAktarim
         {
             this.btnSqlKontrol = new System.Windows.Forms.Button();
             this.btnSiparis = new System.Windows.Forms.Button();
+            this.btnOrderLine = new System.Windows.Forms.Button();
+            this.btnItems = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnSqlKontrol
@@ -53,11 +55,33 @@ namespace trendyolAktarim
             this.btnSiparis.UseVisualStyleBackColor = true;
             this.btnSiparis.Click += new System.EventHandler(this.btnSiparis_Click);
             // 
+            // btnOrderLine
+            // 
+            this.btnOrderLine.Location = new System.Drawing.Point(283, 13);
+            this.btnOrderLine.Name = "btnOrderLine";
+            this.btnOrderLine.Size = new System.Drawing.Size(126, 43);
+            this.btnOrderLine.TabIndex = 3;
+            this.btnOrderLine.Text = "Satırları Göster";
+            this.btnOrderLine.UseVisualStyleBackColor = true;
+            this.btnOrderLine.Click += new System.EventHandler(this.btnOrderLine_Click);
+            // 
+            // btnItems
+            // 
+            this.btnItems.Location = new System.Drawing.Point(416, 13);
+            this.btnItems.Name = "btnItems";
+            this.btnItems.Size = new System.Drawing.Size(122, 43);
+            this.btnItems.TabIndex = 4;
+            this.btnItems.Text = "Ürünleri Göster";
+            this.btnItems.UseVisualStyleBackColor = true;
+            this.btnItems.Click += new System.EventHandler(this.btnItems_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(288, 72);
+            this.ClientSize = new System.Drawing.Size(550, 63);
+            this.Controls.Add(this.btnItems);
+            this.Controls.Add(this.btnOrderLine);
             this.Controls.Add(this.btnSiparis);
             this.Controls.Add(this.btnSqlKontrol);
             this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -75,6 +99,8 @@ namespace trendyolAktarim
 
         private System.Windows.Forms.Button btnSqlKontrol;
         private System.Windows.Forms.Button btnSiparis;
+        private System.Windows.Forms.Button btnOrderLine;
+        private System.Windows.Forms.Button btnItems;
     }
 }
 

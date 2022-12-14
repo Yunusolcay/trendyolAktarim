@@ -19,10 +19,12 @@ namespace trendyolAktarim
         {
             InitializeComponent();
         }
+
+        public string Sorgu = "";
         private void siparisListe_Load(object sender, EventArgs e)
         {
             DBHelper obj = new DBHelper("A_TRENDYOL", "A_TRENDYOL");
-            dataGridView1.DataSource = obj.SelectDataTable("SELECT * FROM A_ORDER ORDER BY ID DESC");
+            dataGridView1.DataSource = obj.SelectDataTable(Sorgu);
             //dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
